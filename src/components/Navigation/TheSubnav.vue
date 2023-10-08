@@ -1,17 +1,14 @@
-<script>
-import { mapState } from 'pinia'
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-import { useJobsStore, FILTERED_JOBS } from '@/stores/jobs'
+import { useJobsStore } from '@/stores/jobs'
 
-export default {
-  name: 'TheSubnav',
-  computed: {
-    ...mapState(useJobsStore, [FILTERED_JOBS]),
-    onJobResultsPage() {
-      return this.$route.name === 'JobResults'
-    }
-  }
-}
+const route = useRoute()
+const onJobResultsPage = computed(() => route.name === 'JobResults')
+
+const jobsStore = useJobsStore()
+const FILTERED_JOBS = computed(() => jobsStore.FILTERED_JOBS)
 </script>
 
 <template>
